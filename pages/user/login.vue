@@ -199,7 +199,6 @@ export default {
 									...data,
 								});
 								if (data.thirdLoginSuccess) {
-									debugger
 									socket.init();
 									uni.showToast({
 										title: '登录成功',
