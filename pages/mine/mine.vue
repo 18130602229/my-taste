@@ -12,19 +12,19 @@
 			<image src="../../static/demo/icon_right.png" style="width: 100rpx;height: 100rpx;" @click="updateUserInfo()"></image>
 		</view>
 		<view class="mine-data">
-			<view><text>教授</text><text>(2)</text></view>
-			<view><text>学习</text><text>(3)</text></view>
+			<view @click="teachList()"><text>教授</text><text>(2)</text></view>
+			<view @click="studyList()"><text>学习</text><text>(3)</text></view>
 		</view>
 		<view>
-			<view class="nav_list" @click="onPageJump('/pages/demo/formDemo')">
+			<view class="nav_list" @click="onPageJump('/pages/mine/amount/amount-info')">
 				<image src="../../static/demo/icon_case.png" mode="aspectFit"></image>
 				<text>账号金额</text>
 			</view>
-			<view class="nav_list" @click="onPageJump('/pages/demo/formDemo')">
+			<view class="nav_list" @click="onPageJump('/pages/mine/integral/integral-info')">
 				<image src="../../static/demo/icon_case.png" mode="aspectFit"></image>
 				<text>信用积分</text>
 			</view>
-			<view class="nav_list" @click="onPageJump('/pages/demo/formDemo')">
+			<view class="nav_list" @click="onPageJump('/pages/mine/feedback')">
 				<image src="../../static/demo/icon_case.png" mode="aspectFit"></image>
 				<text>意见反馈</text>
 			</view>
@@ -97,7 +97,16 @@ export default {
 			uni.navigateTo({
 				url: "/pages/user/login"
 			});
-			
+		},
+		teachList(){
+			uni.navigateTo({
+				url: "/pages/add/teach-list"
+			});
+		},
+		studyList(){
+			uni.navigateTo({
+				url: "/pages/add/study-list"
+			});
 		}
 	},
 	//页面隐藏
@@ -118,6 +127,7 @@ export default {
 @import '@/style/mixin.scss';
 .mine-data{
 	margin-top: 10rpx;
+	margin: auto;
 	display: flex;
 	view{
 		color: #f00;

@@ -1,14 +1,20 @@
 <template>
 	<view>
 		<nav-bar backState="2000" title="我的消息"></nav-bar>
-		<!-- 公共组件-每个页面必须引入 -->
-		<public-module></public-module>
-		<view class="notice-type">
-			<view>通知</view>
-			<view>系统</view>
-			<view>消息</view>
+		<view class="end-title">
+		　　<view @tap="change(0)" :class="{btna:btnnum == 0}">通知</view>
+		  　<view @tap="change(1)" :class="{btna:btnnum == 1}">系统</view>
+		　　<view @tap="change(2)" :class="{btna:btnnum == 2}">消息</view>
 		</view>
-		
+		<view class="end-cont" :class="{dis:btnnum == 0}">
+		 　　0信息
+		</view>
+		<view class="end-cont" :class="{dis:btnnum == 1}">
+		 　　1信息
+		</view>
+		<view class="end-cont" :class="{dis:btnnum == 2}">
+		  　2信息
+		</view>
 		<z-navigation></z-navigation>
 	</view>
 </template>
@@ -20,7 +26,9 @@ export default {
 		zNavigation
 	},
 	data() {
-		return {};
+		return {
+			      btnnum: 0,
+		};
 	},
 	//第一次加载
 	onLoad(e) {
@@ -34,6 +42,10 @@ export default {
 	},
 	//方法
 	methods: {
+		   change(e) {
+		      this.btnnum = e
+		      console.log(this.btnnum)
+		  }
 	},
 	//页面隐藏
 	onHide() {},
@@ -62,4 +74,24 @@ export default {
 		border: 1px solid;
 	}
 }
+
+    /* 将三个内容view的display设置为none(隐藏) */
+    .end-title{
+        display: flex;
+    }
+    .end-title view{
+        flex-grow: 1;
+        text-align: center;
+    }
+    .end-cont{
+        display: none;
+        background: #C8C7CC;
+    }
+    .btna{
+        color: #FFFFFF;
+        background: #00A0FF;
+    }
+    .dis{
+        display: block;
+    }    
 </style>

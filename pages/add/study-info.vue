@@ -42,10 +42,6 @@
 					</picker>
 			</view>
 		</view>
-		<!-- 按钮 -->
-		<view class="form_but"><button class="active" @click="onSubmit(0)">保存</button></view>
-		<view class="form_but" style="margin-top: 0;"><button class="active" @click="onSubmit(1)">发布</button></view>
-		<address-popup v-model="popupShow" :length="3" :force="false"  @change="addressChange"></address-popup>
 		
 	</view>
 </template>

@@ -1,131 +1,193 @@
 <template>
 	<view class="page">
 		<nav-bar title="教授" bgColor="#F5f5f5"></nav-bar>
-		<view class="cell_list" @click="onUnloadImg">
-			<view class="cell_left txt">头像</view>
-			<view class="cell_right">
-				<image :src="avatar" mode="aspectFill"></image>
+		<view class="input_form_box">
+			<view style="padding: 20rpx 30rpx;border-bottom: 2rpx solid #ccc;">
+				<view class="user_info">
+					<image src="../../static/demo/1.jpg"></image>
+					<view>
+						<view>张三</view>
+						<view style="font-size: 28rpx;">深圳南山区</view>
+					</view>
+					<view class="question_time" style="font-size: 28rpx; ">2020/01/16</view>
+				</view>
+				<view style="display: flex;" @click="moreInfo()">
+					<view style="font-size: 32rpx; padding-left: 40rpx;margin-top: 40rpx;">现在失业，没有方向，该怎么办？</view>
+					<radio value="r1" :checked="1== current" color="#FFCC33" style="transform:scale(0.7); margin: auto;" @click="radioChange(1)" />
+				</view>
+			</view>
+			<view style="padding: 20rpx 30rpx;">
+				<view class="user_info">
+					<image src="../../static/demo/1.jpg"></image>
+					<view>
+						<view>张三</view>
+						<view style="font-size: 28rpx;">深圳南山区</view>
+					</view>
+					<view class="question_time" style="font-size: 28rpx; ">2020/01/16</view>
+				</view>
+				<view style="    display: flex;">
+					<view style="font-size: 32rpx; padding-left: 40rpx;margin-top: 40rpx;">现在失业，没有方向，该怎么办？</view>
+					<radio value="r1" :checked="2 == current" color="#FFCC33" style="transform:scale(0.7); margin: auto;" @click="radioChange(2)"/>
+				</view>
+			</view>
+			<view style="padding: 20rpx 30rpx;">
+				<view class="user_info">
+					<image src="../../static/demo/1.jpg"></image>
+					<view>
+						<view>张三</view>
+						<view style="font-size: 28rpx;">深圳南山区</view>
+					</view>
+					<view class="question_time" style="font-size: 28rpx; ">2020/01/16</view>
+				</view>
+				<view style="    display: flex;">
+					<view style="font-size: 32rpx; padding-left: 40rpx;margin-top: 40rpx;">现在失业，没有方向，该怎么办？</view>
+					<radio value="r1" :checked="3 == current" color="#FFCC33" style="transform:scale(0.7); margin: auto;" @click="radioChange(3)"/>
+				</view>
+			</view>
+			<view class="input_box">
+				<view class="name required">见面地址</view>
+				<view class="select_info" @click="popupShow = true">
+					<text class="value" v-if="position.length == 3">{{ position[0].name }}{{ position[1].name }}{{ position[2].name }}</text>
+					<text class="value" v-else-if="position.length == 2">{{ position[0].name }}{{ position[1].name }}</text>
+					<text class="value" v-else-if="position.length == 1">{{ position[0].name }}</text>
+					<text class="select" v-else="">请选择地址</text>
+				</view>
+			</view>
+			<view class="input_box btm_line">
+				<view class="name required">约见时间</view>
+					<picker mode="date" :value="teach.startTime" :start="startDate" :end="endDate" @change="bindDateChange">
+					   <view class="select_info">
+					   	<view class="value" v-if="teach.startTime">{{ teach.startTime }}</view>
+					   	<view class="select" v-else>请选择</view>
+					   </view>
+					</picker>
+			</view>
+			<view class="input_box btm_line">
+				<view class="name required">时长</view>
+				<picker :range="timeData" @change="onPickerChange">
+					<view class="select_info">
+						<view class="value" v-if="teach.duration">{{ teach.duration }}</view>
+						<view class="select" v-else>请选择</view>
+					</view>
+				</picker>
+			</view>
+			<view class="input_box">
+				<view class="name">备注</view>
+				<view class="textarea_info"><textarea v-model="teach.remarks" placeholder="备注信息"></textarea></view>
 			</view>
 		</view>
-		<z-prompt :value="nickname" text="请输入昵称" @confirm="onNameChange" :options="popupOptions">
-			<view class="cell_list">
-				<view class="cell_left txt">昵称</view>
-				<view class="cell_right arrow">{{ nickname }}</view>
-			</view>
-		</z-prompt>
-		<z-prompt :value="phone" text="请输入手机号" @confirm="onPhoneChange" :options="popupOptions">
-			<view class="cell_list">
-				<view class="cell_left txt">手机号</view>
-				<view class="cell_right arrow">{{ phone }}</view>
-			</view>
-		</z-prompt>
 		<!-- 按钮 -->
-		<view class="form_but"><button class="active" @click="onSubmit">保存</button></view>
+		<view class="form_but"><button class="active" @click="onSubmit(0)">发布</button></view>
+		<address-popup v-model="popupShow" :length="3" :force="false"  @change="addressChange"></address-popup>
 	</view>
 </template>
 
 <script>
-	import zPrompt from '@/components/common/prompt';
-	import {
-		mapState,
-		mapMutations
-	} from 'vuex';
+	import addressPopup from '@/components/common/address-popup';
 	export default {
 		components: {
-			zPrompt
+			addressPopup
 		},
 		data() {
 			return {
-				popupOptions: {
-					placeholder: ''
+				teach:{
+					startTime:'',
+					studyId:'664f93b07e844429844f44ae1c2e5111',
+					//endTime:'',
+					duration:'',
+					type:1,
+					address:'',
+					remarks:''
 				},
-				avatar: '',
-				nickname: '',
-				phone: ""
+				r1:'',
+				current: 0,
+				timeData:["0.5 小时","1 小时","1.5 小时","2 小时","2.5 小时","3 小时"],
+				position:[], // 保存选择的地区
+				popupShow: false,
 			};
 		},
 		computed: {
-			...mapState(['userInfo'])
-		},
-		//第一次加载
-		onLoad(e) {
-			this.avatar = this.userInfo.avatar || "";
-			this.nickname = this.userInfo.nickname || "";
-			this.phone = this.userInfo.phone || "";
+			startDate() {
+				return this.getDate('start');
+			},
+			endDate() {
+				return this.getDate('end');
+			}
 		},
 		//页面显示
 		onShow() {},
 		//方法
 		methods: {
-			...mapMutations(['setUserInfo']),
-			//修改昵称
-			onNameChange(e) {
-				this.nickname = e.value;
-				e.close();
+			//选择时长
+			onPickerChange(e) {
+				this.teach.duration = this.timeData[e.detail.value];
 			},
-			//修改手机号
-			onPhoneChange(e) {
-				if (!this.$base.phoneRegular.test(e.value)) {
-					uni.showToast({
-						title: '请输入正确的手机号',
-						icon: 'none'
-					});
-					return;
+			// 选择见面地址
+			addressChange(e) {
+				console.log(e);
+				this.position = e;
+			},
+			// 选择时间
+			bindDateChange(e) {
+				this.teach.startTime = e.target.value
+			},
+			radioChange(val) {
+				console.info(val);
+				this.current=val;
+			},
+			moreInfo(){
+				// todo 没有跳转 懵逼ing
+				console.info("study-info");
+			// uni.navigateTo({
+			//     url: '/pages/mine/user-info'
+			// });
+				uni.navigateTo({
+				    url: '/pages/add/study-info'
+				})
+			},
+			getDate(type) {
+				const date = new Date();
+				let year = date.getFullYear();
+				let month = date.getMonth() + 1;
+				let day = date.getDate();
+	
+				if (type === 'start') {
+					year = year - 60;
+				} else if (type === 'end') {
+					year = year + 2;
 				}
-				this.phone = e.value;
-				e.close();
-			},
-			//修改头像
-			onUnloadImg() {
-				this.$http.urlImgUpload("api/common/v1/upload_image", {
-					count: 1
-				}).then(res => {
-					this.avatar = res[0].url;
-				});
+				month = month > 9 ? month : '0' + month;;
+				day = day > 9 ? day : '0' + day;
+				return `${year}-${month}-${day}`;
 			},
 			//提交
-			onSubmit() {
-				if (this.avatar == '') {
+			onSubmit(state) {
+				if (this.teach.startTime == '') {
 					uni.showToast({
-						title: '请上传头像',
+						title: '请输入问题',
 						icon: 'none'
 					});
 					return;
 				}
-				if (this.nickname == '') {
-					uni.showToast({
-						title: '请输入昵称',
-						icon: 'none'
-					});
-					return;
-				}
-				let httpData = {
-					nickname: this.nickname,
-					avatar: this.avatar
-				};
-				if(this.phone){
-					if (!this.$base.phoneRegular.test(this.phone)) {
-						uni.showToast({
-							title: '请输入正确的手机号',
-							icon: 'none'
-						});
-						return;
+				this.teach.address = "";
+				this.position.forEach(item =>{
+					if(this.teach.address == ""){
+						this.teach.address += item.name;
+					}else{
+						this.teach.address += "."+ item.name;
 					}
-					if(this.phone != this.userInfo.phone){
-						httpData.phone = this.phone;
-					}
-				}
+				})
+				console.info("submit")
 				this.$http
-					.post('api/common/v1/edit_user_info', httpData)
+					.post('teach', this.teach)
 					.then(res => {
-						this.setUserInfo({
-							nickname: this.nickname,
-							avatar: this.avatar,
-							phone: this.phone || this.userInfo.phone
-						});
+						console.info("result:",res)
 						uni.showToast({
-							title: '修改成功！'
+							title: '保存成功！'
 						});
+						setTimeout(() => {
+							uni.navigateBack();
+						}, 1000);
 					});
 			}
 		},
@@ -143,17 +205,22 @@
 		}
 	};
 </script>
+
 <style lang="scss" scoped>
 	@import '@/style/mixin.scss';
-	.cell_list {
-		padding: 30rpx 30rpx;
-		margin: 20rpx 30rpx 0 30rpx;
-		border-radius: 8rpx;
-	}
-
-	.cell_right image {
-		width: 140rpx;
-		height: 140rpx;
+.user_info{
+	display: flex;
+	image{
+		margin-right: 10px;
+		width: 50px;
+		height: 50px;
 		border-radius: 50%;
+		overflow: hidden;
 	}
+	.question_time{
+		margin: auto;
+		position: relative;
+		left: 42px;
+	}
+}
 </style>

@@ -33,6 +33,7 @@ let $http = new request({
 	//设置请求头（如果使用报错跨域问题，可能是content-type请求类型和后台那边设置的不一致）
 	header: {
 		'Content-Type': 'application/x-www-form-urlencoded',
+		// 'Content-Type': 'application/json',
 		// 'project_token': base.projectToken, //项目token（可删除）
 	}
 });

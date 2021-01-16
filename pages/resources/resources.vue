@@ -3,17 +3,17 @@
 		<nav-bar backState="2000" title="资源"></nav-bar>
 		<!-- 公共组件-每个页面必须引入 -->
 		<public-module></public-module>
-		<view class="nav_list" @click="onPageJump('/pages/demo/formDemo')">
+		<view class="nav_list" @click="onPageJump('/pages/resources/friends/friends-info')">
 			<image src="../../static/demo/icon_case.png" mode="aspectFit"></image>
 			<text>好友列表</text>
 		</view>
-		<view class="nav_list" @click="onPageJump('/pages/demo/formDemo')">
+		<view class="nav_list" @click="onPageJump('/pages/resources/field/field-info')">
 			<image src="../../static/demo/icon_case.png" mode="aspectFit"></image>
 			<text>涉及领域</text>
 		</view>
-		<view class="nav_list" @click="onPageJump('/pages/demo/formDemo')">
+		<view class="nav_list" @click="onPageJump('/pages/resources/summarize/summarize-info')">
 			<image src="../../static/demo/icon_case.png" mode="aspectFit"></image>
-			<text>自我总计</text>
+			<text>自我总结</text>
 		</view>
 		<z-navigation></z-navigation>
 	</view>

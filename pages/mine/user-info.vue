@@ -186,15 +186,15 @@
 					});
 					return;
 				}
-				if(this.phone){
-					if (!this.$base.phoneRegular.test(this.phone)) {
-						uni.showToast({
-							title: '请输入正确的手机号',
-							icon: 'none'
-						});
-						return;
-					}
-				}
+				// if(this.phone){
+				// 	if (!this.$base.phoneRegular.test(this.phone)) {
+				// 		uni.showToast({
+				// 			title: '请输入正确的手机号',
+				// 			icon: 'none'
+				// 		});
+				// 		return;
+				// 	}
+				// }
 				this.$http
 					.post('user', this.user)
 					.then(res => {

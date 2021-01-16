@@ -88,6 +88,15 @@
 		    
 		},
 		{
+		    "path" : "pages/add/study-info",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
 		    "path" : "pages/add/teach",
 		    "style" :                                                                                    
 		    {
@@ -95,7 +104,41 @@
 		        "enablePullDownRefresh": false
 		    }
 		    
-		}
+		},
+		{
+		    "path" : "pages/add/teach-info",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/add/teach-list",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/add/study-list",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{"path" : "pages/mine/amount/amount-info"},
+		{"path" : "pages/mine/integral/integral-info"},
+		{"path" : "pages/mine/feedback"},
+		{"path" : "pages/resources/field/field-info"},
+		{"path" : "pages/resources/friends/friends-info"},
+		{"path" : "pages/resources/summarize/summarize-info"}
+		
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

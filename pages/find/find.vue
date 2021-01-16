@@ -14,10 +14,19 @@
 			</swiper>
 		</view>
 		
-		<view class="little-nva">
-			<view>推荐</view>
-			<view>教学</view>
-			<view>最新</view>
+		<view class="end-title">
+		     <view v-for="(item,index) in items" :key="index" :class="{btna:count == index}" @tap="change(index)">
+		        {{item}}
+		    </view>
+		</view>
+		<view class="end-cont" :class="{dis:btnnum == 0}">
+		　　0信息
+		</view>
+		<view class="end-cont" :class="{dis:btnnum == 1}">
+		　　1信息
+		</view>
+		<view class="end-cont" :class="{dis:btnnum == 2}">
+		　　2信息
 		</view>
 		<z-navigation></z-navigation>
 	</view>
@@ -33,7 +42,10 @@ export default {
 	data() {
 		return {
 			swiperIndex: 0,
-			bannerList: [1, 1, 1, 1]
+			bannerList: [1, 1, 1, 1],
+			btnnum: 0,
+			items:["推荐","教学","最新"],
+			count:"",
 		};
 	},
 	//第一次加载
@@ -72,7 +84,12 @@ export default {
 			uni.navigateTo({
 				url: url
 			});
-		}
+		},
+		  change(e) {
+		     this.count = e
+		     this.btnnum = e
+		     console.log(this.count)
+		  }
 	},
 	//用户点击分享
 	onShareAppMessage(e) {
@@ -82,17 +99,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '@/style/mixin.scss';
-.little-nva{
-	margin-top: 10rpx;
-	display: flex;
-	view{
-		color: #f00;
-		width: 33%;
-		border: 1rpx;
-		text-align: center;
-		border: 1px solid;
-	}
-}
 .banner_swiper_box {
 	padding-top: 15upx;
 	background-color: #fff;
@@ -121,4 +127,23 @@ export default {
 		}
 	}
 }
+/* 将三个内容view的display设置为none(隐藏) */
+.end-title{
+	display: flex;
+}
+.end-title view{
+	flex-grow: 1;
+	text-align: center;
+}
+.end-cont{
+	display: none;
+	background: #C8C7CC;
+}
+.btna{
+	color: #FFFFFF;
+	background: #00A0FF;
+}
+.dis{
+	display: block;
+} 
 </style>
